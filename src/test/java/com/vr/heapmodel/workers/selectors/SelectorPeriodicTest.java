@@ -1,4 +1,4 @@
-package com.vr.heapmodel.workers;
+package com.vr.heapmodel.workers.selectors;
 
 import static com.vr.heapmodel.workers.selectors.SelectorPeriodic.ALLOCATION_PERIOD;
 import static org.junit.jupiter.api.Assertions.assertEquals;

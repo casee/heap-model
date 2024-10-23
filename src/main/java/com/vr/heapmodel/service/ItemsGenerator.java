@@ -1,5 +1,7 @@
 package com.vr.heapmodel.service;
 
+import static com.vr.heapmodel.utils.HeapModelUtils.newItem;
+
 import com.vr.heapmodel.model.Item;
 import java.util.List;
 import java.util.Random;
@@ -13,10 +15,6 @@ public class ItemsGenerator {
     return IntStream.range(0, nItems)
         .mapToObj(i -> newItem(random.nextInt(3) + 1))
         .toList();
-  }
-
-  private Item newItem(int size) {
-    return new Item(size, Character.toString(size + 96));
   }
 
 }
