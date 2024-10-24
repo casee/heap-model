@@ -2,7 +2,7 @@ package com.vr.heapmodel.service;
 
 import static com.vr.heapmodel.HeapModelConstants.ALLOCATION_COUNT;
 import static com.vr.heapmodel.HeapModelConstants.MAX_SPRINT_ITEMS;
-import static com.vr.heapmodel.HeapModelConstants.REMOVE_MOVE_COUNT;
+import static com.vr.heapmodel.HeapModelConstants.REMOVAL_COUNT;
 import static com.vr.heapmodel.model.HeapAction.MOVE;
 import static com.vr.heapmodel.model.HeapAction.REMOVE;
 
@@ -91,7 +91,7 @@ public class HeapModelService {
 
 
   private int moveCount() {
-    return REMOVE_MOVE_COUNT - (counters.get(REMOVE) - counters.get(MOVE));
+    return REMOVAL_COUNT - counters.get(REMOVE) - counters.get(MOVE);
   }
 
   private void printChosenItem(List<Item> items, Item item) {

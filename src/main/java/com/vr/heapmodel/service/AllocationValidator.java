@@ -1,9 +1,6 @@
 package com.vr.heapmodel.service;
 
-import static com.vr.heapmodel.HeapModelConstants.ALLOCATION_COUNT;
 import static com.vr.heapmodel.HeapModelConstants.ALLOWED_AGE;
-import static com.vr.heapmodel.HeapModelConstants.REMOVE_COUNT;
-import static com.vr.heapmodel.HeapModelConstants.REMOVE_MOVE_COUNT;
 import static com.vr.heapmodel.model.HeapAction.ALLOCATE;
 import static com.vr.heapmodel.model.HeapAction.MOVE;
 import static com.vr.heapmodel.model.HeapAction.REMOVE;
@@ -47,14 +44,13 @@ public class AllocationValidator {
 
   private void validateIsAvailable(Allocation allocation) {
     if (!allocation.isAvailable()) {
-      throw new IllegalArgumentException("Allocation cannot be removed before %s sprint".formatted(ALLOWED_AGE));
+      throw new IllegalArgumentException("Allocation is cannot be removed before %s sprint".formatted(ALLOWED_AGE));
     }
   }
 
   private void validateBounds(Allocation allocation) {
     if (allocation.getFrom() < 0 || allocation.getTo() >= heap.getCapacity()) {
-      throw new IllegalArgumentException("Allocation is out of bounds: %s. capacity = %d".formatted(
-          allocation, heap.getCapacity()));
+      throw new IllegalArgumentException("Allocation is out of bounds: %s".formatted(allocation));
     }
   }
 
@@ -65,7 +61,7 @@ public class AllocationValidator {
         .findAny();
 
     if (intersection.isPresent()) {
-      throw new IllegalArgumentException("Allocation %s intersects with another one: %s"
+      throw new IllegalArgumentException("The allocation %s intersects with another one: %s"
           .formatted(allocation, intersection.get()));
     }
   }
@@ -75,20 +71,20 @@ public class AllocationValidator {
   }
 
   private void validateAllocateCounter() {
-    if (counters.get(ALLOCATE) >= ALLOCATION_COUNT) {
+    if (counters.get(ALLOCATE) >= 2) {
       throw new IllegalArgumentException("ALLOCATE limit exceeded: " + counters.get(ALLOCATE));
     }
   }
 
   private void validateRemoveCounter() {
-    if (counters.get(REMOVE) >= REMOVE_COUNT) {
+    if (counters.get(REMOVE) >= 1) {
       throw new IllegalArgumentException("REMOVE limit exceeded: " + counters.get(REMOVE));
     }
   }
 
   private void validateMoveCounter() {
     int count = counters.get(REMOVE) + counters.get(MOVE);
-    if (count >= REMOVE_MOVE_COUNT) {
+    if (count >= 2) {
       throw new IllegalArgumentException("MOVE limit exceeded: " + count);
     }
   }
