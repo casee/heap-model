@@ -47,7 +47,8 @@ class RelocatorMaxPotentialTest {
     return Stream.of(
         Arguments.of("|...|BB|ccc|ccc|ccc|..|",   3,  0),
         Arguments.of("|bb|ccc|.|BB|A|bb|bb|...|", 1, 13),
-        Arguments.of("|CCC|BB|A|CCC|...|ccc|.|",  4,  9)
+        Arguments.of("|CCC|BB|A|CCC|...|ccc|.|",  4,  9),
+        Arguments.of("|BB|bb|...|BB|CCC|.|BB|.|", 3,  4)
     );
   }
 
