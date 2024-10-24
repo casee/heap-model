@@ -10,6 +10,7 @@ public class HeapModelConstants {
   public static final int MAX_SPRINT_ITEMS  = 3;
   public static final int ALLOWED_AGE       = 2;
   public static final int ALLOCATION_COUNT  = 2;
-  public static final int REMOVAL_COUNT     = 2;
+  public static final int REMOVE_COUNT      = 1;
+  public static final int REMOVE_MOVE_COUNT = 2;
 
 }
