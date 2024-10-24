@@ -23,6 +23,7 @@ public class RelocatorMaxPotential implements Relocator {
     // сортируем кандидатов по убыванию потенциала и по убыванию позиции
     List<MoveCandidate> candidates = toMoveCandidates(snapshot.getAllocations(), snapshot.getCapacity()).stream()
         .sorted(comparing(MoveCandidate::getPotential)
+            .thenComparing(MoveCandidate::getSize)
             .thenComparing(MoveCandidate::getFrom).reversed())
         .toList();
 
