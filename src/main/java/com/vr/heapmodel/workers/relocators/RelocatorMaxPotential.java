@@ -20,14 +20,15 @@ public class RelocatorMaxPotential implements Relocator {
       return;
     }
 
-    // сортируем кандидатов по убыванию потенциала и по убыванию позиции
+    // сортируем кандидатов по убыванию потенциала, размера и позиции
     List<MoveCandidate> candidates = toMoveCandidates(snapshot.getAllocations(), snapshot.getCapacity()).stream()
         .sorted(comparing(MoveCandidate::getPotential)
             .thenComparing(MoveCandidate::getSize)
-            .thenComparing(MoveCandidate::getFrom).reversed())
+            .thenComparing(MoveCandidate::getFrom)
+            .reversed())
         .toList();
 
-    // сортируем свободные области по возрастанию размера и по возрастанию позиции
+    // сортируем свободные области по возрастанию размера и позиции
     List<FreeSpace> availableFreeSpaces = freeSpaces.stream()
         .sorted(comparing(FreeSpace::getSize)
             .thenComparing(FreeSpace::getFrom))

@@ -50,4 +50,5 @@ public class HeapModelPrinter {
   public static String printItem(Item item) {
     return item.getSymbol().repeat(item.getSize());
   }
+
 }

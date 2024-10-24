@@ -18,11 +18,11 @@ public class AllocatorMinSizeNearestSpace implements Allocator {
     // находим свободные области
     List<FreeSpace> freeSpaces = toFreeSpaces(snapshot);
 
-    // сортируем по возрастанию размера и по возрастанию позиции
+    // сортируем свободные области по возрастанию размера и позиции
     freeSpaces.sort(Comparator.comparing(FreeSpace::getSize)
         .thenComparing(FreeSpace::getFrom));
 
-    // вставляем в первую подходящую свободную область с минимальным размером
+    // вставляем элемент в первую подходящую свободную область с минимальным размером
     for (FreeSpace freeSpace : freeSpaces) {
       if (freeSpace.getSize() >= item.getSize()) {
         api.allocate(item, freeSpace.getFrom());
