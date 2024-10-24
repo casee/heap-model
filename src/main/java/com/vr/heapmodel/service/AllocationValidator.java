@@ -1,6 +1,9 @@
 package com.vr.heapmodel.service;
 
+import static com.vr.heapmodel.HeapModelConstants.ALLOCATE_COUNT;
 import static com.vr.heapmodel.HeapModelConstants.ALLOWED_AGE;
+import static com.vr.heapmodel.HeapModelConstants.REMOVE_COUNT;
+import static com.vr.heapmodel.HeapModelConstants.REMOVE_MOVE_COUNT;
 import static com.vr.heapmodel.model.HeapAction.ALLOCATE;
 import static com.vr.heapmodel.model.HeapAction.MOVE;
 import static com.vr.heapmodel.model.HeapAction.REMOVE;
@@ -71,20 +74,20 @@ public class AllocationValidator {
   }
 
   private void validateAllocateCounter() {
-    if (counters.get(ALLOCATE) >= 2) {
+    if (counters.get(ALLOCATE) >= ALLOCATE_COUNT) {
       throw new IllegalArgumentException("ALLOCATE limit exceeded: " + counters.get(ALLOCATE));
     }
   }
 
   private void validateRemoveCounter() {
-    if (counters.get(REMOVE) >= 1) {
+    if (counters.get(REMOVE) >= REMOVE_COUNT) {
       throw new IllegalArgumentException("REMOVE limit exceeded: " + counters.get(REMOVE));
     }
   }
 
   private void validateMoveCounter() {
     int count = counters.get(REMOVE) + counters.get(MOVE);
-    if (count >= 2) {
+    if (count >= REMOVE_MOVE_COUNT) {
       throw new IllegalArgumentException("MOVE limit exceeded: " + count);
     }
   }
