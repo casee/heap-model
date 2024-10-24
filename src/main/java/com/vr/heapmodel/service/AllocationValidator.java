@@ -47,7 +47,7 @@ public class AllocationValidator {
 
   private void validateIsAvailable(Allocation allocation) {
     if (!allocation.isAvailable()) {
-      throw new IllegalArgumentException("Allocation is cannot be removed before %s sprint".formatted(ALLOWED_AGE));
+      throw new IllegalArgumentException("Allocation cannot be removed before %s sprint".formatted(ALLOWED_AGE));
     }
   }
 
@@ -64,7 +64,7 @@ public class AllocationValidator {
         .findAny();
 
     if (intersection.isPresent()) {
-      throw new IllegalArgumentException("The allocation %s intersects with another one: %s"
+      throw new IllegalArgumentException("Allocation %s intersects with another one: %s"
           .formatted(allocation, intersection.get()));
     }
   }
