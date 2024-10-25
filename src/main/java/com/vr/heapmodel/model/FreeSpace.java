@@ -1,4 +1,4 @@
-package com.vr.heapmodel.model.aux;
+package com.vr.heapmodel.model;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

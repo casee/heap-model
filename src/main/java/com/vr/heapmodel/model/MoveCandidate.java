@@ -1,6 +1,5 @@
-package com.vr.heapmodel.model.aux;
+package com.vr.heapmodel.model;
 
-import com.vr.heapmodel.model.Allocation;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;

@@ -4,8 +4,8 @@ import static com.vr.heapmodel.utils.HeapModelUtils.toMoveCandidates;
 import static java.util.Comparator.comparing;
 
 import com.vr.heapmodel.api.HeapApi;
+import com.vr.heapmodel.model.MoveCandidate;
 import com.vr.heapmodel.model.Snapshot;
-import com.vr.heapmodel.model.aux.MoveCandidate;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

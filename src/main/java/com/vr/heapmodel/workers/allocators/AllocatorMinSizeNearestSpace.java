@@ -3,9 +3,9 @@ package com.vr.heapmodel.workers.allocators;
 import static com.vr.heapmodel.utils.HeapModelUtils.toFreeSpaces;
 
 import com.vr.heapmodel.api.HeapApi;
+import com.vr.heapmodel.model.FreeSpace;
 import com.vr.heapmodel.model.Item;
 import com.vr.heapmodel.model.Snapshot;
-import com.vr.heapmodel.model.aux.FreeSpace;
 import java.util.Comparator;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

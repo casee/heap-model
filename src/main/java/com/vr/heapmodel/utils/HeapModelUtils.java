@@ -3,10 +3,10 @@ package com.vr.heapmodel.utils;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.vr.heapmodel.model.Allocation;
+import com.vr.heapmodel.model.FreeSpace;
 import com.vr.heapmodel.model.Item;
+import com.vr.heapmodel.model.MoveCandidate;
 import com.vr.heapmodel.model.Snapshot;
-import com.vr.heapmodel.model.aux.FreeSpace;
-import com.vr.heapmodel.model.aux.MoveCandidate;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.NoArgsConstructor;
