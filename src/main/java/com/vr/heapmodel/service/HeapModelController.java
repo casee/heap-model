@@ -14,10 +14,14 @@ public class HeapModelController {
   public void run() {
     log.info("START");
 
+    int noAllocationsCount = 0;
     for (int i = 0; i < MAX_SPRINT_NUMBER; i++) {
       service.process();
 
-      if (!service.hasActions()) {
+      if (service.hasAllocations()) {
+        noAllocationsCount = 0;
+      } else if (++noAllocationsCount == 2) {
+        log.info("There were no allocations for the last two sprints! Sprints fulfilled: {}", i + 1);
         break;
       }
     }

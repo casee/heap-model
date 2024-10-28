@@ -3,6 +3,7 @@ package com.vr.heapmodel.service;
 import static com.vr.heapmodel.HeapModelConstants.ALLOCATE_COUNT;
 import static com.vr.heapmodel.HeapModelConstants.MAX_SPRINT_ITEMS;
 import static com.vr.heapmodel.HeapModelConstants.REMOVE_MOVE_COUNT;
+import static com.vr.heapmodel.model.HeapAction.ALLOCATE;
 import static com.vr.heapmodel.model.HeapAction.MOVE;
 import static com.vr.heapmodel.model.HeapAction.REMOVE;
 
@@ -53,8 +54,8 @@ public class HeapModelService {
     }
   }
 
-  public boolean hasActions() {
-    return counters.sum() > 0;
+  public boolean hasAllocations() {
+    return counters.get(ALLOCATE) > 0;
   }
 
   @SuppressWarnings("unused")
