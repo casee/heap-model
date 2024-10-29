@@ -9,28 +9,28 @@ import lombok.ToString;
 @RequiredArgsConstructor
 public class MoveCandidate {
 
-  private final Allocation allocation;
-  private final int potential;
-  private final boolean insideFreeSpace;
+    private final Allocation allocation;
+    private final int potential;
+    private final boolean insideFreeSpace;
 
-  public int getFrom() {
-    return allocation.getFrom();
-  }
+    public int getFrom() {
+        return allocation.getFrom();
+    }
 
-  public int getSize() {
-    return allocation.getSize();
-  }
+    public int getSize() {
+        return allocation.getSize();
+    }
 
-  public int getTo() {
-    return allocation.getTo();
-  }
+    public int getTo() {
+        return allocation.getTo();
+    }
 
-  public int getAge() {
-    return allocation.getAge();
-  }
+    public int getAge() {
+        return allocation.getAge();
+    }
 
-  public boolean isAvailable() {
-    return allocation.isAvailable();
-  }
+    public boolean isAvailable() {
+        return allocation.isAvailable();
+    }
 
 }

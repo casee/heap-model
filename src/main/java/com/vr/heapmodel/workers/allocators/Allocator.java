@@ -6,6 +6,6 @@ import com.vr.heapmodel.model.Snapshot;
 
 public interface Allocator {
 
-  void allocate(HeapApi api, Snapshot snapshot, Item item);
+    void allocate(HeapApi api, Snapshot snapshot, Item item);
 
 }

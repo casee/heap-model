@@ -5,6 +5,6 @@ import com.vr.heapmodel.model.Snapshot;
 
 public interface Relocator {
 
-  void move(HeapApi api, Snapshot snapshot, int moveCount);
+    void move(HeapApi api, Snapshot snapshot, int moveCount);
 
 }

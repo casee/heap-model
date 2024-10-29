@@ -5,10 +5,10 @@ import com.vr.heapmodel.model.Item;
 
 public interface HeapApi {
 
-  void allocate(Item item, int position);
+    void allocate(Item item, int position);
 
-  void remove(Allocation allocation);
+    void remove(Allocation allocation);
 
-  void move(Allocation allocation, int position);
+    void move(Allocation allocation, int position);
 
 }

@@ -5,6 +5,6 @@ import com.vr.heapmodel.model.Snapshot;
 
 public interface Remover {
 
-  void remove(HeapApi api, Snapshot snapshot);
+    void remove(HeapApi api, Snapshot snapshot);
 
 }

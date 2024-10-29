@@ -5,14 +5,14 @@ import lombok.Getter;
 @Getter
 public enum HeapAction {
 
-  ALLOCATE("++"),
-  REMOVE("--"),
-  MOVE("<<");
+    ALLOCATE("++"),
+    REMOVE("--"),
+    MOVE("<<");
 
-  private final String symbol;
+    private final String symbol;
 
-  HeapAction(String symbol) {
-    this.symbol = symbol;
-  }
+    HeapAction(String symbol) {
+        this.symbol = symbol;
+    }
 
 }

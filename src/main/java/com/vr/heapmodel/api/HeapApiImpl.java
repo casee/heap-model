@@ -9,32 +9,32 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class HeapApiImpl implements HeapApi {
 
-  private final Heap heap;
-  private final AllocationValidator validator;
+    private final Heap heap;
+    private final AllocationValidator validator;
 
-  @Override
-  public void allocate(Item item, int position) {
-    Allocation allocation = new Allocation(item, position);
+    @Override
+    public void allocate(Item item, int position) {
+        Allocation allocation = new Allocation(item, position);
 
-    validator.canAllocate(allocation);
+        validator.canAllocate(allocation);
 
-    heap.add(allocation);
-  }
+        heap.add(allocation);
+    }
 
-  @Override
-  public void remove(Allocation allocation) {
-    validator.canRemove(allocation);
+    @Override
+    public void remove(Allocation allocation) {
+        validator.canRemove(allocation);
 
-    heap.remove(allocation);
-  }
+        heap.remove(allocation);
+    }
 
-  @Override
-  public void move(Allocation allocation, int position) {
-    Allocation newAllocation = new Allocation(allocation.getItem(), allocation.getAge(),  position);
+    @Override
+    public void move(Allocation allocation, int position) {
+        Allocation newAllocation = new Allocation(allocation.getItem(), allocation.getAge(), position);
 
-    validator.canMove(newAllocation);
+        validator.canMove(newAllocation);
 
-    heap.replace(allocation, newAllocation);
-  }
+        heap.replace(allocation, newAllocation);
+    }
 
 }

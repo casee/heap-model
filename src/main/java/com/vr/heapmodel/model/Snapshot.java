@@ -1,14 +1,15 @@
 package com.vr.heapmodel.model;
 
-import java.util.List;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
 
 @Getter
 @RequiredArgsConstructor
 public class Snapshot {
 
-  private final int capacity;
-  private final List<Allocation> allocations;
+    private final int capacity;
+    private final List<Allocation> allocations;
 
 }

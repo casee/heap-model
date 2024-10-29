@@ -9,15 +9,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class Razgrebator {
 
-  private final Remover remover;
-  private final Relocator relocator;
+    private final Remover remover;
+    private final Relocator relocator;
 
-  public void remove(HeapApi api, Snapshot snapshot) {
-    remover.remove(api, snapshot);
-  }
+    public void remove(HeapApi api, Snapshot snapshot) {
+        remover.remove(api, snapshot);
+    }
 
-  public void move(HeapApi api, Snapshot snapshot, int moveCount) {
-    relocator.move(api, snapshot, moveCount);
-  }
+    public void move(HeapApi api, Snapshot snapshot, int moveCount) {
+        relocator.move(api, snapshot, moveCount);
+    }
 
 }

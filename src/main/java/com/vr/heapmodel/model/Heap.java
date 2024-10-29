@@ -1,63 +1,62 @@
 package com.vr.heapmodel.model;
 
-import static com.vr.heapmodel.model.HeapAction.ALLOCATE;
-import static com.vr.heapmodel.model.HeapAction.MOVE;
-import static com.vr.heapmodel.model.HeapAction.REMOVE;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.BiConsumer;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+
+import static com.vr.heapmodel.model.HeapAction.*;
 
 @Getter
 @RequiredArgsConstructor
 public class Heap {
 
-  private final int capacity;
-  private final List<Allocation> allocations = new ArrayList<>();
-  private final List<BiConsumer<Heap, HeapAction>> listeners = new ArrayList<>();
+    private final int capacity;
+    private final List<Allocation> allocations = new ArrayList<>();
+    private final List<BiConsumer<Heap, HeapAction>> listeners = new ArrayList<>();
 
-  public Snapshot getSnapshot() {
-    return new Snapshot(capacity, List.copyOf(allocations));
-  }
+    public Snapshot getSnapshot() {
+        return new Snapshot(capacity, List.copyOf(allocations));
+    }
 
-  public void add(Allocation allocation) {
-    allocations.add(allocation);
-    allocations.sort(Comparator.comparing(Allocation::getFrom));
+    public void add(Allocation allocation) {
+        allocations.add(allocation);
+        allocations.sort(Comparator.comparing(Allocation::getFrom));
 
-    notifyListeners(ALLOCATE);
-  }
+        notifyListeners(ALLOCATE);
+    }
 
-  public void replace(Allocation allocation, Allocation newAllocation) {
-    allocations.remove(allocation);
-    allocations.add(newAllocation);
-    allocations.sort(Comparator.comparing(Allocation::getFrom));
+    public void replace(Allocation allocation, Allocation newAllocation) {
+        allocations.remove(allocation);
+        allocations.add(newAllocation);
+        allocations.sort(Comparator.comparing(Allocation::getFrom));
 
-    notifyListeners(MOVE);
-  }
+        notifyListeners(MOVE);
+    }
 
-  public void remove(Allocation allocation) {
-    allocations.remove(allocation);
+    public void remove(Allocation allocation) {
+        allocations.remove(allocation);
 
-    notifyListeners(REMOVE);
-  }
+        notifyListeners(REMOVE);
+    }
 
-  public boolean contains(Allocation allocation) {
-    return allocations.contains(allocation);
-  }
+    public boolean contains(Allocation allocation) {
+        return allocations.contains(allocation);
+    }
 
-  public void nextSprint() {
-    allocations.forEach(a -> a.setAge(a.getAge() + 1));
-  }
+    public void nextSprint() {
+        allocations.forEach(a -> a.setAge(a.getAge() + 1));
+    }
 
-  public void registerListener(BiConsumer<Heap, HeapAction> listener) {
-    this.listeners.add(listener);
-  }
+    public void registerListener(BiConsumer<Heap, HeapAction> listener) {
+        this.listeners.add(listener);
+    }
 
-  private void notifyListeners(HeapAction action) {
-    listeners.forEach(a -> a.accept(this, action));
-  }
+    private void notifyListeners(HeapAction action) {
+        listeners.forEach(a -> a.accept(this, action));
+    }
 
 }

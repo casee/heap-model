@@ -9,7 +9,7 @@ import lombok.ToString;
 @RequiredArgsConstructor
 public class Item {
 
-  private final int size;
-  private final String symbol;
+    private final int size;
+    private final String symbol;
 
 }

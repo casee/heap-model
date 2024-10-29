@@ -9,11 +9,11 @@ import lombok.ToString;
 @RequiredArgsConstructor
 public class FreeSpace {
 
-  private final int from;
-  private final int size;
+    private final int from;
+    private final int size;
 
-  public int getTo() {
-    return from + size - 1;
-  }
+    public int getTo() {
+        return from + size - 1;
+    }
 
 }
