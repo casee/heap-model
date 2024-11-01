@@ -7,7 +7,7 @@ public enum HeapAction {
 
     ALLOCATE("++"),
     REMOVE("--"),
-    MOVE("<<");
+    MOVE(">>");
 
     private final String symbol;
 

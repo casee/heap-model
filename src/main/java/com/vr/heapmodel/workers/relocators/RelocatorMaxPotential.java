@@ -38,15 +38,26 @@ public class RelocatorMaxPotential implements Relocator {
         // перемещаем элемент с большим потенциалом в самую маленькую свободную область
         for (MoveCandidate candidate : candidates) {
             for (FreeSpace freeSpace : availableFreeSpaces) {
-                if (isCandidateMatchFreeSpace(candidate, freeSpace)
+                if ((candidate.isInsideFreeSpace() && isCandidateNearFreeSpace(candidate, freeSpace)) ||
+                        (isCandidateMatchFreeSpace(candidate, freeSpace)
                         && (candidate.isInsideFreeSpace() || isCandidateFarFromFreeSpace(candidate, freeSpace))
-                        && isMovementEffective(candidate, freeSpace)
+                        && isMovementEffective(candidate, freeSpace))
                 ) {
-                    api.move(candidate.getAllocation(), freeSpace.getFrom());
+                    api.move(candidate.getAllocation(), alignPosition(candidate, freeSpace));
                     return;
                 }
             }
         }
+    }
+
+    private int alignPosition(MoveCandidate candidate, FreeSpace freeSpace) {
+        return freeSpace.getFrom() > candidate.getTo()
+                ? freeSpace.getTo() - candidate.getSize() + 1
+                : freeSpace.getFrom();
+    }
+
+    private boolean isCandidateNearFreeSpace(MoveCandidate candidate, FreeSpace freeSpace) {
+        return candidate.getFrom() == freeSpace.getTo() + 1 || candidate.getTo() == freeSpace.getFrom() - 1;
     }
 
     private boolean isCandidateMatchFreeSpace(MoveCandidate candidate, FreeSpace freeSpace) {

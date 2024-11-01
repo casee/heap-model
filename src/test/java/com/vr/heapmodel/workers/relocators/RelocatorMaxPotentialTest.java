@@ -1,8 +1,11 @@
 package com.vr.heapmodel.workers.relocators;
 
 import com.vr.heapmodel.api.HeapApi;
+import com.vr.heapmodel.api.HeapApiImpl;
 import com.vr.heapmodel.model.Allocation;
+import com.vr.heapmodel.model.Heap;
 import com.vr.heapmodel.model.Snapshot;
+import com.vr.heapmodel.service.AllocationValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,40 +19,48 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static com.vr.heapmodel.HeapModelConstants.HEAP_CAPACITY;
+import static com.vr.heapmodel.service.HeapModelPrinter.snapshotToString;
 import static com.vr.heapmodel.utils.HeapModelUtils.newItem;
-import static org.mockito.Mockito.verify;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verifyNoInteractions;
 
 @ExtendWith(MockitoExtension.class)
 class RelocatorMaxPotentialTest {
 
     @Mock
-    private HeapApi api;
+    private AllocationValidator validator;
 
+    private Heap heap;
+    private HeapApi api;
     private Relocator relocator;
 
     @BeforeEach
     void setUp() {
+        heap = new Heap(HEAP_CAPACITY);
+        api = new HeapApiImpl(heap, validator);
         relocator = new RelocatorMaxPotential();
     }
 
     @ParameterizedTest
     @MethodSource("movesAllocationParameters")
-    void movesAllocation(String footprint, int expectedIndex, int position) {
-        Snapshot snapshot = snapshotFromFootprint(footprint);
+    void movesAllocation(String beforeMove, String expected) {
+        Snapshot snapshot = snapshotFromFootprint(beforeMove);
+        heap.fromSnapshot(snapshot);
 
         relocator.move(api, snapshot, 1);
+        String actual = snapshotToString(heap.getSnapshot());
 
-        Allocation expected = snapshot.getAllocations().get(expectedIndex);
-        verify(api).move(expected, position);
+        assertEquals(expected, actual);
     }
 
     private static Stream<Arguments> movesAllocationParameters() {
         return Stream.of(
-                Arguments.of("|...|BB|ccc|ccc|ccc|..|", 3, 0),
-                Arguments.of("|bb|ccc|.|BB|A|bb|bb|...|", 1, 13),
-                Arguments.of("|CCC|BB|A|CCC|...|ccc|.|", 4, 9),
-                Arguments.of("|BB|bb|...|BB|CCC|.|BB|.|", 3, 4)
+                Arguments.of("|...|BB|ccc|ccc|ccc|..|",     "|ccc|BB|ccc|ccc|.....|"),
+                Arguments.of("|bb|ccc|.|BB|A|bb|bb|...|",   "|bb|....|BB|A|bb|bb|ccc|"),
+                Arguments.of("|CCC|BB|A|CCC|...|ccc|.|",    "|CCC|BB|A|CCC|....|ccc|"),
+                Arguments.of("|BB|bb|...|BB|CCC|.|BB|.|",   "|BB|bb|CCC|BB|....|BB|.|"),
+                Arguments.of("|A|A|.|BB|...|A|bb|a|BB|BB|", "|A|A|BB|....|A|bb|a|BB|BB|")
         );
     }
 

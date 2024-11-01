@@ -1,9 +1,6 @@
 package com.vr.heapmodel.service;
 
-import com.vr.heapmodel.model.Allocation;
-import com.vr.heapmodel.model.Heap;
-import com.vr.heapmodel.model.HeapAction;
-import com.vr.heapmodel.model.Item;
+import com.vr.heapmodel.model.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,9 +13,13 @@ import java.util.stream.Collectors;
 public class HeapModelPrinter {
 
     public void printHeap(Heap heap, HeapAction action) {
+        log.info("{}: {}", action.getSymbol(), snapshotToString(heap.getSnapshot()));
+    }
+
+    public static String snapshotToString(Snapshot snapshot) {
         int i = 0;
         List<String> parts = new ArrayList<>();
-        for (Allocation allocation : heap.getAllocations()) {
+        for (Allocation allocation : snapshot.getAllocations()) {
             if (allocation.getFrom() > i) {
                 parts.add(printFreeSpace(allocation.getFrom() - i));
             }
@@ -26,11 +27,11 @@ public class HeapModelPrinter {
             i = allocation.getTo() + 1;
         }
 
-        if (i < heap.getCapacity()) {
-            parts.add(printFreeSpace(heap.getCapacity() - i));
+        if (i < snapshot.getCapacity()) {
+            parts.add(printFreeSpace(snapshot.getCapacity() - i));
         }
 
-        log.info("{}: {}", action.getSymbol(), printHeapParts(parts));
+        return printHeapParts(parts);
     }
 
     public static String printHeapParts(List<String> parts) {

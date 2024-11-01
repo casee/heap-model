@@ -59,4 +59,9 @@ public class Heap {
         listeners.forEach(a -> a.accept(this, action));
     }
 
+    public void fromSnapshot(Snapshot snapshot) {
+        allocations.clear();
+        allocations.addAll(snapshot.getAllocations());
+    }
+
 }
