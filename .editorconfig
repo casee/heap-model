@@ -1,6 +1,14 @@
 root = true
 
 [*]
+charset = utf-8
+end_of_line = lf
+indent_size = 4
+indent_style = space
+insert_final_newline = false
+max_line_length = 120
+tab_width = 8
+
 ij_continuation_indent_size = 8
 ij_formatter_off_tag = @formatter:off
 ij_formatter_on_tag = @formatter:on
@@ -43,7 +51,7 @@ ij_java_assignment_wrap = off
 ij_java_binary_operation_sign_on_next_line = false
 ij_java_binary_operation_wrap = off
 ij_java_blank_lines_after_anonymous_class_header = 0
-ij_java_blank_lines_after_class_header = 0
+ij_java_blank_lines_after_class_header = 1
 ij_java_blank_lines_after_imports = 1
 ij_java_blank_lines_after_package = 1
 ij_java_blank_lines_around_class = 1
