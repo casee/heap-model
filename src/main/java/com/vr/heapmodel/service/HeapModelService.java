@@ -11,6 +11,7 @@ import com.vr.heapmodel.workers.Razgrebator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiConsumer;
@@ -68,14 +69,16 @@ public class HeapModelService {
     }
 
     private void allocate() {
-        for (int i = 0; i < ALLOCATE_COUNT; i++) {
-            List<Item> items = generator.generate(MAX_SPRINT_ITEMS);
+        List<Item> items = new ArrayList<>(generator.generate(MAX_SPRINT_ITEMS));
 
+        for (int i = 0; i < ALLOCATE_COUNT; i++) {
             Item item = nagrebator.choose(items);
 
             printChosenItem(items, item);
 
             withApiAndSnapshot((a, s) -> nagrebator.allocate(a, s, item));
+
+            items.remove(item);
         }
     }
 
