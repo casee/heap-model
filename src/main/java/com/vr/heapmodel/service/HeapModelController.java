@@ -11,31 +11,20 @@ public class HeapModelController {
 
     private final HeapModelService service;
 
-    private int noAllocationsCount = 0;
-
     public void run() {
         log.info("START");
 
         for (int i = 0; i < MAX_SPRINT_NUMBER; i++) {
             service.process();
 
-            if (isNoAllocationsForTheLastTwoSprints()) {
-                log.info("There were no allocations for the last two sprints! Sprints fulfilled: {}", i + 1);
+            if (!service.hasAllocations()) {
+                log.info("There were no allocations for the last sprint!");
+                log.info("Sprints fulfilled: {}", i + 1);
                 break;
             }
         }
 
         log.info("END");
-    }
-
-    private boolean isNoAllocationsForTheLastTwoSprints() {
-        if (service.hasAllocations()) {
-            noAllocationsCount = 0;
-        } else {
-            noAllocationsCount++;
-        }
-
-        return noAllocationsCount == 2;
     }
 
 }
