@@ -4,14 +4,12 @@ import com.vr.heapmodel.api.HeapApi;
 import com.vr.heapmodel.model.FreeSpace;
 import com.vr.heapmodel.model.Item;
 import com.vr.heapmodel.model.Snapshot;
-import lombok.RequiredArgsConstructor;
 
 import java.util.Comparator;
 import java.util.List;
 
 import static com.vr.heapmodel.utils.HeapModelUtils.toFreeSpaces;
 
-@RequiredArgsConstructor
 public class AllocatorMinSizeNearestSpace implements Allocator {
 
     @Override

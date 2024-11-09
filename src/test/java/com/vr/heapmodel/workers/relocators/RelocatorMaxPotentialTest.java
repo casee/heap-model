@@ -60,7 +60,8 @@ class RelocatorMaxPotentialTest {
                 Arguments.of("|bb|ccc|.|BB|A|bb|bb|...|",   "|bb|....|BB|A|bb|bb|ccc|"),
                 Arguments.of("|CCC|BB|A|CCC|...|ccc|.|",    "|CCC|BB|A|CCC|....|ccc|"),
                 Arguments.of("|BB|bb|...|BB|CCC|.|BB|.|",   "|BB|bb|CCC|BB|....|BB|.|"),
-                Arguments.of("|A|A|.|BB|...|A|bb|a|BB|BB|", "|A|A|BB|....|A|bb|a|BB|BB|")
+                Arguments.of("|A|A|.|BB|...|A|bb|a|BB|BB|", "|A|A|A|BB|....|bb|a|BB|BB|"),
+                Arguments.of("|......|ccc|..|bb|...|",      "|...........|bb|ccc|")
         );
     }
 

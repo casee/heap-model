@@ -6,6 +6,7 @@ import com.vr.heapmodel.model.MoveCandidate;
 import com.vr.heapmodel.model.Snapshot;
 
 import java.util.List;
+import java.util.function.BiPredicate;
 
 import static com.vr.heapmodel.utils.HeapModelUtils.toFreeSpaces;
 import static com.vr.heapmodel.utils.HeapModelUtils.toMoveCandidates;
@@ -35,19 +36,44 @@ public class RelocatorMaxPotential implements Relocator {
                         .thenComparing(FreeSpace::getFrom))
                 .toList();
 
-        // перемещаем элемент с большим потенциалом в самую маленькую свободную область
+        if (!simpleMove(api, availableFreeSpaces, candidates)) {
+            complexMove(api, availableFreeSpaces, candidates);
+        }
+    }
+
+    // перемещаем элемент с большим потенциалом в самую маленькую свободную область
+    private boolean simpleMove(HeapApi api, List<FreeSpace> freeSpaces, List<MoveCandidate> candidates) {
+        return moveIf(api, freeSpaces, candidates, (c, f) ->
+                isCandidateMatchFreeSpace(c, f)
+                        && isMovementEffective(c, f)
+                        && isCandidateFarFromFreeSpace(c, f)
+        );
+    }
+
+    private void complexMove(HeapApi api, List<FreeSpace> freeSpaces, List<MoveCandidate> candidates) {
+        moveIf(api, freeSpaces, candidates, (c, f) ->
+                (c.isInsideFreeSpace() && isCandidateNearFreeSpace(c, f))
+             || (isCandidateMatchFreeSpace(c, f)
+              && (c.isInsideFreeSpace() || isCandidateFarFromFreeSpace(c, f))
+              && isMovementEffective(c, f))
+        );
+    }
+
+    private boolean moveIf(
+            HeapApi api,
+            List<FreeSpace> freeSpaces,
+            List<MoveCandidate> candidates,
+            BiPredicate<MoveCandidate, FreeSpace> predicate
+    ) {
         for (MoveCandidate candidate : candidates) {
-            for (FreeSpace freeSpace : availableFreeSpaces) {
-                if ((candidate.isInsideFreeSpace() && isCandidateNearFreeSpace(candidate, freeSpace)) ||
-                        (isCandidateMatchFreeSpace(candidate, freeSpace)
-                        && (candidate.isInsideFreeSpace() || isCandidateFarFromFreeSpace(candidate, freeSpace))
-                        && isMovementEffective(candidate, freeSpace))
-                ) {
+            for (FreeSpace freeSpace : freeSpaces) {
+                if (predicate.test(candidate, freeSpace)) {
                     api.move(candidate.getAllocation(), alignPosition(candidate, freeSpace));
-                    return;
+                    return true;
                 }
             }
         }
+        return false;
     }
 
     private int alignPosition(MoveCandidate candidate, FreeSpace freeSpace) {

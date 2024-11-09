@@ -8,7 +8,7 @@ import com.vr.heapmodel.utils.MoveCounters;
 import com.vr.heapmodel.workers.Nagrebator;
 import com.vr.heapmodel.workers.Razgrebator;
 import com.vr.heapmodel.workers.allocators.Allocator;
-import com.vr.heapmodel.workers.allocators.AllocatorMinSizeNearestSpace;
+import com.vr.heapmodel.workers.allocators.AllocatorLargestSpaceMiddle;
 import com.vr.heapmodel.workers.relocators.Relocator;
 import com.vr.heapmodel.workers.relocators.RelocatorMaxPotential;
 import com.vr.heapmodel.workers.removers.Remover;
@@ -43,7 +43,7 @@ public class Main {
 
     private static HeapModelService createService(Heap heap, HeapApi api, MoveCounters counters) {
         Selector selector = new SelectorPeriodic();
-        Allocator allocator = new AllocatorMinSizeNearestSpace();
+        Allocator allocator = new AllocatorLargestSpaceMiddle();
         Nagrebator nagrebator = new Nagrebator(selector, allocator);
 
         Remover remover = new RemoverMaxAgeMaxPotential();
