@@ -44,10 +44,14 @@ public class RelocatorMaxPotential implements Relocator {
     // перемещаем элемент с большим потенциалом в самую маленькую свободную область
     private boolean simpleMove(HeapApi api, List<FreeSpace> freeSpaces, List<MoveCandidate> candidates) {
         return moveIf(api, freeSpaces, candidates, (c, f) ->
-                isCandidateMatchFreeSpace(c, f)
+                isCandidateMatchFreeSpaceExactly(c, f)
                         && isMovementEffective(c, f)
                         && isCandidateFarFromFreeSpace(c, f)
         );
+    }
+
+    private boolean isCandidateMatchFreeSpaceExactly(MoveCandidate candidate, FreeSpace freeSpace) {
+        return candidate.getSize() == freeSpace.getSize();
     }
 
     private void complexMove(HeapApi api, List<FreeSpace> freeSpaces, List<MoveCandidate> candidates) {
