@@ -75,7 +75,9 @@ class RazgrebatorTest {
 
     private static Stream<Arguments> removesAllocationParameters() {
         return Stream.of(
-                Arguments.of("|.|BB3|ccc0|.|BB2|..|BB4|ccc1|", "|.|BB3|ccc0|.|BB2|....|ccc1|")
+                Arguments.of("|.|BB3|ccc0|.|BB2|..|BB4|ccc1|",    "|.|BB3|ccc0|.|BB2|....|ccc1|"),
+                Arguments.of("|.|BB2|.|bb0|.|bb1|a0|.|BB3|CCC2|", "|.|BB2|.|bb0|.|bb1|a0|.|BB3|...|"),
+                Arguments.of("|A8|ccc1|BB4|.....|CCC3|BB2|",      "|.|ccc1|BB4|.....|CCC3|BB2|")
         );
     }
 
