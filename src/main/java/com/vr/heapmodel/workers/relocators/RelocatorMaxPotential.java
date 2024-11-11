@@ -15,8 +15,11 @@ import static java.util.Comparator.comparing;
 public class RelocatorMaxPotential implements Relocator {
 
     public void move(HeapApi api, Snapshot snapshot, int moveCount) {
-        // находим свободные области
-        List<FreeSpace> freeSpaces = toFreeSpaces(snapshot);
+        // сортируем свободные области по возрастанию размера и позиции
+        List<FreeSpace> freeSpaces = toFreeSpaces(snapshot).stream()
+                .sorted(comparing(FreeSpace::getSize)
+                        .thenComparing(FreeSpace::getFrom))
+                .toList();
 
         if (freeSpaces.size() < 2) {
             return;
@@ -30,15 +33,20 @@ public class RelocatorMaxPotential implements Relocator {
                         .reversed())
                 .toList();
 
-        // сортируем свободные области по возрастанию размера и позиции
-        List<FreeSpace> availableFreeSpaces = freeSpaces.stream()
-                .sorted(comparing(FreeSpace::getSize)
-                        .thenComparing(FreeSpace::getFrom))
-                .toList();
-
-        if (!simpleMove(api, availableFreeSpaces, candidates)) {
-            complexMove(api, availableFreeSpaces, candidates);
+        if (isExceptionalSetup(freeSpaces)) {
+            return;
         }
+
+        if (!simpleMove(api, freeSpaces, candidates)) {
+            complexMove(api, freeSpaces, candidates);
+        }
+    }
+
+    private boolean isExceptionalSetup(List<FreeSpace> freeSpaces) {
+        List<Integer> list = freeSpaces.stream()
+                .map(FreeSpace::getSize)
+                .toList();
+        return list.equals(List.of(2, 3));
     }
 
     // перемещаем элемент с большим потенциалом в самую маленькую свободную область

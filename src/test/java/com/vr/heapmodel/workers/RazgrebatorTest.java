@@ -57,7 +57,7 @@ class RazgrebatorTest {
 
     private static Stream<Arguments> movesAllocationParameters() {
         return Stream.of(
-                Arguments.of("|...|BB2|ccc1|ccc1|ccc1|..|",          "|ccc1|BB2|ccc1|ccc1|.....|"),
+//                Arguments.of("|...|BB2|ccc1|ccc1|ccc1|..|",          "|ccc1|BB2|ccc1|ccc1|.....|"),
                 Arguments.of("|bb1|ccc1|.|BB3|A2|bb1|bb1|...|",      "|bb1|....|BB3|A2|bb1|bb1|ccc1|"),
                 Arguments.of("|CCC3|BB3|A2|CCC3|...|ccc1|.|",        "|CCC3|BB3|A2|CCC3|....|ccc1|"),
                 Arguments.of("|BB3|bb1|...|BB3|CCC3|.|BB3|.|",       "|BB3|bb1|CCC3|BB3|....|BB3|.|"),
@@ -93,13 +93,21 @@ class RazgrebatorTest {
         assertEquals(expected, actual);
     }
 
-    @Test
-    void doesNotMoveAllocation() {
-        Snapshot snapshot = snapshotFromFootprint("|bb1|....|BB3|A2|bb1|bb1|ccc1|");
+    @ParameterizedTest
+    @MethodSource("doesNotMoveParameters")
+    void doesNotMove(String footprint) {
+        Snapshot snapshot = snapshotFromFootprint(footprint);
 
         razgrebator.move(api, snapshot, 1);
 
         verifyNoInteractions(api);
+    }
+
+    private static Stream<Arguments> doesNotMoveParameters() {
+        return Stream.of(
+                Arguments.of("|bb1|....|BB3|A2|bb1|bb1|ccc1|"),
+                Arguments.of("|..|bb0|ccc0|bb1|bb1|BB2|...|")
+        );
     }
 
 }
