@@ -13,7 +13,7 @@ public class RemoverMaxAgeMaxSize implements Remover {
     public void remove(HeapApi api, Snapshot snapshot) {
         toMoveCandidates(snapshot).stream()
                 .filter(MoveCandidate::isAvailable)
-                .sorted(comparing(MoveCandidate::getAge))
+                .sorted(comparing(MoveCandidate::getAge).reversed())
                 .limit(2)
                 .max(comparing(MoveCandidate::getSize))
                 .map(MoveCandidate::getAllocation)

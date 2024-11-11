@@ -7,6 +7,8 @@ import com.vr.heapmodel.model.Snapshot;
 import com.vr.heapmodel.service.AllocationValidator;
 import com.vr.heapmodel.workers.relocators.Relocator;
 import com.vr.heapmodel.workers.relocators.RelocatorMaxPotential;
+import com.vr.heapmodel.workers.removers.Remover;
+import com.vr.heapmodel.workers.removers.RemoverMaxAgeMaxSize;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,19 +36,23 @@ class RazgrebatorTest {
 
     private Heap heap;
     private HeapApi api;
-    private Relocator relocator;
+    private Razgrebator razgrebator;
 
     @BeforeEach
     void setUp() {
         heap = new Heap(HEAP_CAPACITY);
         api = spy(new HeapApiImpl(heap, validator));
-        relocator = new RelocatorMaxPotential();
+
+        Remover remover = new RemoverMaxAgeMaxSize();
+        Relocator relocator = new RelocatorMaxPotential();
+
+        razgrebator = new Razgrebator(remover, relocator);
     }
 
     @ParameterizedTest
     @MethodSource("movesAllocationParameters")
     void movesAllocation(String beforeMove, String expected) {
-        actionTest((a, s) -> relocator.move(a, s, 1), beforeMove, expected);
+        actionTest((a, s) -> razgrebator.move(a, s, 1), beforeMove, expected);
     }
 
     private static Stream<Arguments> movesAllocationParameters() {
@@ -61,6 +67,17 @@ class RazgrebatorTest {
         );
     }
 
+    @ParameterizedTest
+    @MethodSource("removesAllocationParameters")
+    void removesAllocation(String beforeMove, String expected) {
+        actionTest((a, s) -> razgrebator.remove(a, s), beforeMove, expected);
+    }
+
+    private static Stream<Arguments> removesAllocationParameters() {
+        return Stream.of(
+                Arguments.of("|.|BB3|ccc0|.|BB2|..|BB4|ccc1|", "|.|BB3|ccc0|.|BB2|....|ccc1|")
+        );
+    }
 
     private void actionTest(BiConsumer<HeapApi, Snapshot> action, String beforeMove, String expected) {
         Snapshot snapshot = snapshotFromFootprint(beforeMove);
@@ -76,7 +93,7 @@ class RazgrebatorTest {
     void doesNotMoveAllocation() {
         Snapshot snapshot = snapshotFromFootprint("|bb1|....|BB3|A2|bb1|bb1|ccc1|");
 
-        relocator.move(api, snapshot, 1);
+        razgrebator.move(api, snapshot, 1);
 
         verifyNoInteractions(api);
     }
