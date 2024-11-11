@@ -64,6 +64,8 @@ class RazgrebatorTest {
                 Arguments.of("|A2|A2|.|BB3|...|A2|bb1|a1|BB3|BB3|",  "|A2|A2|A2|BB3|....|bb1|a1|BB3|BB3|"),
                 Arguments.of("|......|ccc1|..|bb1|...|",             "|...........|bb1|ccc1|"),
                 Arguments.of("|...|CCC3|a1|ccc1|..|bb1|..|",         "|ccc1|CCC3|a1|.....|bb1|..|")
+                // todo: fix
+                //Arguments.of("|.|bb0|.|ccc0|....|bb1|ccc1|",         "|bb0|..|ccc0|....|bb1|ccc1|")
         );
     }
 
