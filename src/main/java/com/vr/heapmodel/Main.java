@@ -12,7 +12,7 @@ import com.vr.heapmodel.workers.allocators.AllocatorLargestSpaceMiddle;
 import com.vr.heapmodel.workers.relocators.Relocator;
 import com.vr.heapmodel.workers.relocators.RelocatorMaxPotential;
 import com.vr.heapmodel.workers.removers.Remover;
-import com.vr.heapmodel.workers.removers.RemoverMaxAgeMaxPotential;
+import com.vr.heapmodel.workers.removers.RemoverMaxAgeMaxSize;
 import com.vr.heapmodel.workers.selectors.Selector;
 import com.vr.heapmodel.workers.selectors.SelectorPeriodic;
 
@@ -46,7 +46,7 @@ public class Main {
         Allocator allocator = new AllocatorLargestSpaceMiddle();
         Nagrebator nagrebator = new Nagrebator(selector, allocator);
 
-        Remover remover = new RemoverMaxAgeMaxPotential();
+        Remover remover = new RemoverMaxAgeMaxSize();
         Relocator relocator = new RelocatorMaxPotential();
         Razgrebator razgrebator = new Razgrebator(remover, relocator);
 

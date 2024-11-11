@@ -8,7 +8,7 @@ import static com.vr.heapmodel.utils.HeapModelUtils.toMoveCandidates;
 import static java.util.Comparator.comparing;
 
 // удаляем самый старый самый большой элемент
-public class RemoverMaxAgeMaxPotential implements Remover {
+public class RemoverMaxAgeMaxSize implements Remover {
 
     public void remove(HeapApi api, Snapshot snapshot) {
         toMoveCandidates(snapshot).stream()

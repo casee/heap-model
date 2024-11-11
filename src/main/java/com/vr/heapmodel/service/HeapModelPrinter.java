@@ -46,7 +46,7 @@ public class HeapModelPrinter {
     public static String printAllocation(Allocation allocation) {
         Item item = allocation.getItem();
         String symbol = printItem(item);
-        return allocation.isAvailable() ? symbol.toUpperCase() : symbol;
+        return (allocation.isAvailable() ? symbol.toUpperCase() : symbol) + allocation.getAge();
     }
 
     public static String printItem(Item item) {
