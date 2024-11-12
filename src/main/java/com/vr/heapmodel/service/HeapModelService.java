@@ -62,7 +62,7 @@ public class HeapModelService {
     }
 
     private void newSprint() {
-        log.info("Sprint: {}", sprintCount.incrementAndGet());
+        log.info("Sprint #{}", sprintCount.incrementAndGet());
 
         heap.nextSprint();
         counters.clear();
