@@ -1,0 +1,33 @@
+17:37:33.826 [main] INFO com.vr.heapmodel.service.HeapModelController -- START
+17:37:33.829 [main] INFO com.vr.heapmodel.service.HeapModelService -- Sprint #1
+17:37:33.839 [main] INFO com.vr.heapmodel.service.HeapModelService --     [bb, bb, bb] => bb
+17:37:33.848 [main] INFO com.vr.heapmodel.service.HeapModelPrinter -- ++: |.......|bb0|.......|
+17:37:33.848 [main] INFO com.vr.heapmodel.service.HeapModelService --     [bb, bb] => bb
+17:37:33.848 [main] INFO com.vr.heapmodel.service.HeapModelPrinter -- ++: |..|bb0|...|bb0|.......|
+17:37:33.863 [main] INFO com.vr.heapmodel.service.HeapModelPrinter -- >>: |bb0|bb0|............|
+17:37:33.863 [main] INFO com.vr.heapmodel.service.HeapModelService -- Sprint #2
+17:37:33.863 [main] INFO com.vr.heapmodel.service.HeapModelService --     [bb, bb, bb] => bb
+17:37:33.864 [main] INFO com.vr.heapmodel.service.HeapModelPrinter -- ++: |bb1|bb1|.....|bb0|.....|
+17:37:33.864 [main] INFO com.vr.heapmodel.service.HeapModelService --     [bb, bb] => bb
+17:37:33.864 [main] INFO com.vr.heapmodel.service.HeapModelPrinter -- ++: |bb1|bb1|.|bb0|..|bb0|.....|
+17:37:33.864 [main] INFO com.vr.heapmodel.service.HeapModelPrinter -- >>: |bb1|...|bb0|bb1|bb0|.....|
+17:37:33.864 [main] INFO com.vr.heapmodel.service.HeapModelService -- Sprint #3
+17:37:33.864 [main] INFO com.vr.heapmodel.service.HeapModelService --     [bb, bb, ccc] => bb
+17:37:33.864 [main] INFO com.vr.heapmodel.service.HeapModelPrinter -- ++: |BB2|...|bb1|BB2|bb1|.|bb0|..|
+17:37:33.865 [main] INFO com.vr.heapmodel.service.HeapModelService --     [bb, ccc] => ccc
+17:37:33.865 [main] INFO com.vr.heapmodel.service.HeapModelPrinter -- ++: |BB2|ccc0|bb1|BB2|bb1|.|bb0|..|
+17:37:33.865 [main] INFO com.vr.heapmodel.service.HeapModelPrinter -- --: |..|ccc0|bb1|BB2|bb1|.|bb0|..|
+17:37:33.865 [main] INFO com.vr.heapmodel.service.HeapModelPrinter -- >>: |bb0|ccc0|bb1|BB2|bb1|.....|
+17:37:33.865 [main] INFO com.vr.heapmodel.service.HeapModelService -- Sprint #4
+17:37:33.866 [main] INFO com.vr.heapmodel.service.HeapModelService --     [a, a, ccc] => ccc
+17:37:33.866 [main] INFO com.vr.heapmodel.service.HeapModelPrinter -- ++: |bb1|ccc1|BB2|BB3|BB2|.|ccc0|.|
+17:37:33.866 [main] INFO com.vr.heapmodel.service.HeapModelService --     [a, a] => a
+17:37:33.866 [main] INFO com.vr.heapmodel.service.HeapModelPrinter -- ++: |bb1|ccc1|BB2|BB3|BB2|a0|ccc0|.|
+17:37:33.867 [main] INFO com.vr.heapmodel.service.HeapModelPrinter -- --: |bb1|ccc1|BB2|..|BB2|a0|ccc0|.|
+17:37:33.867 [main] INFO com.vr.heapmodel.service.HeapModelService -- Sprint #5
+17:37:33.868 [main] INFO com.vr.heapmodel.service.HeapModelService --     [ccc, bb, ccc] => ccc
+17:37:33.868 [main] INFO com.vr.heapmodel.service.HeapModelService --     [bb, ccc] => ccc
+17:37:33.868 [main] INFO com.vr.heapmodel.service.HeapModelPrinter -- --: |BB2|CCC2|....|BB3|a1|ccc1|.|
+17:37:33.868 [main] INFO com.vr.heapmodel.service.HeapModelController -- There were no allocations for the last sprint!
+17:37:33.868 [main] INFO com.vr.heapmodel.service.HeapModelController -- Sprints fulfilled: 5
+17:37:33.868 [main] INFO com.vr.heapmodel.service.HeapModelController -- END
