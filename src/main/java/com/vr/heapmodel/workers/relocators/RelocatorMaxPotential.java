@@ -17,7 +17,6 @@ public class RelocatorMaxPotential implements Relocator {
     public void move(HeapApi api, Snapshot snapshot, int moveCount) {
         // сортируем свободные области по возрастанию размера и позиции
         List<FreeSpace> freeSpaces = toFreeSpaces(snapshot).stream()
-                .filter(f -> f.getSize() != 3)
                 .sorted(comparing(FreeSpace::getSize)
                         .thenComparing(FreeSpace::getFrom))
                 .toList();
